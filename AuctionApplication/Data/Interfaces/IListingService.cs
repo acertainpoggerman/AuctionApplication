@@ -6,5 +6,6 @@ namespace AuctionApplication.Data.Interfaces
     {
         IQueryable<Listing> GetAll();
         Task<Listing?> GetById(int? id);
+        Task Add(Listing listing);
     }
 }

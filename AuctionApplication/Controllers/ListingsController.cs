@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AuctionApplication.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using AuctionApplication.Models;
 
 namespace AuctionApplication.Controllers
 {
@@ -35,7 +36,38 @@ namespace AuctionApplication.Controllers
 
         public IActionResult Create()
         {
+            //Console.WriteLine("running");
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ListingVM listing)
+        {
+            if (listing.Image != null)
+            {
+                string uploadDir = Path.Combine(_webhostEnvironment.WebRootPath, "images");
+                string fileName = listing.Image.FileName;
+                string filePath = Path.Combine(uploadDir, fileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    listing.Image.CopyTo(fileStream);
+                }
+
+                var listingObj = new Listing
+                {
+                    Title = listing.Title,
+                    Description = listing.Description,
+                    Price = listing.Price,
+                    IdentityUserId = listing.IdentityUserId,
+                    ImagePath = fileName,
+                };
+
+                await _listingService.Add(listingObj);
+                return RedirectToAction("Index");
+            }
+            return View(listing);
         }
     }
 }

@@ -17,8 +17,9 @@ namespace AuctionApplication.Data.Services
         {
             var listing = await _context.Listings
                 .Include(l => l.User)
-                .Include(l => l.Bids)
                 .Include(l => l.Comments)
+                .Include(l => l.Bids)
+                    //.ThenInclude(b => b.User)
                 .FirstOrDefaultAsync(l => l.Id == id);
     
             return listing;
@@ -28,6 +29,12 @@ namespace AuctionApplication.Data.Services
         {
             var applicationDbContext = _context.Listings.Include(l => l.User);
             return applicationDbContext;
+        }
+
+        public async Task Add(Listing listing)
+        {
+            _context.Listings.Add(listing);
+            await _context.SaveChangesAsync();
         }
     }
 }

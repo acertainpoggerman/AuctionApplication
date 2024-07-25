@@ -10,8 +10,11 @@
 
 @foreach (var listing in Model)
 {
-    <div>
-        <div>
+    <div class="row">
+        <div class="col-xs-3 col-lg-6">
+            <img src="~/images/@listing.ImagePath" style="max-width:400px; max-height:400px" alt="Image" />
+        </div>
+        <div class="col-xs-3 col-lg-6">
             <h5><a asp-action="Details" asp-route-id="@listing.Id">@listing.Title</a></h5>
             <div>@listing.Description</div>
             <div>Bid: $@listing.Price.ToString("N2")</div>
