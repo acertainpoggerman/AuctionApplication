@@ -13,6 +13,17 @@ namespace AuctionApplication.Data.Services
             _context = context;
         }
 
+        public async Task<Listing?> GetById(int? id)
+        {
+            var listing = await _context.Listings
+                .Include(l => l.User)
+                .Include(l => l.Bids)
+                .Include(l => l.Comments)
+                .FirstOrDefaultAsync(l => l.Id == id);
+    
+            return listing;
+        }
+
         public IQueryable<Listing> GetAll()
         {
             var applicationDbContext = _context.Listings.Include(l => l.User);

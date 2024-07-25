@@ -5,5 +5,6 @@ namespace AuctionApplication.Data.Interfaces
     public interface IListingService
     {
         IQueryable<Listing> GetAll();
+        Task<Listing?> GetById(int? id);
     }
 }

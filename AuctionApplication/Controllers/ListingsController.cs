@@ -20,5 +20,22 @@ namespace AuctionApplication.Controllers
             var applicationDbContext = _listingService.GetAll();
             return View(await applicationDbContext.ToListAsync());
         }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var listing = await _listingService.GetById(id);
+            if (listing == null)
+            {
+                return NotFound();
+            }
+            return View(listing);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
