@@ -36,7 +36,6 @@ namespace AuctionApplication.Controllers
 
         public IActionResult Create()
         {
-            //Console.WriteLine("running");
             return View();
         }
 
@@ -61,6 +60,7 @@ namespace AuctionApplication.Controllers
                     Description = listing.Description,
                     Price = listing.Price,
                     IdentityUserId = listing.IdentityUserId,
+                    IsSold = false,
                     ImagePath = fileName,
                 };
 
