@@ -1,0 +1,11 @@
+﻿@model IEnumerable<AuctionApplication.Models.Bid>
+
+<h5>Most Recent Bids</h5>
+
+@foreach (var bid in Model)
+{
+    <div class="d-flex gap-2">
+        <span>@bid.User?.UserName</span>
+        <span>@bid.Price</span>
+    </div>
+}

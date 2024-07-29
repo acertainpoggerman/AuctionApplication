@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz@0,9..40;1,9..40&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -18,5 +21,142 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+.rubik {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.grid-cols-2 {
+    grid-template-columns: auto auto;
+}
+
+.text-white-90 {
+    color: #e6e6e6;
+}
+
+.hover-accent:hover {
+    background-color: #f3f4f7;
+}
+
+.rd-4 {
+    border-radius: 12px;
+}
+
+.nav-link {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    color: #111111;
+    border-radius: 0.25rem;
+    padding-inline: 16px !important;
+}
+
+.main-logo {
+    height: 100%;
+    padding-inline: 1rem;
+}
+
+.main-logo:hover {
+    background-color: black;
+    color: white !important;
+}
+
+.navbar {
+    padding-block: 0 !important;
+}
+
+.link-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: ease-out color 100ms;
+    transition: ease-out background-color 100ms;
+}
+
+
+.w-fit {
+    width: fit-content;
+}
+
+.btn-gray {
+    color: #888888;
+    background-color: #ececec;
+}
+
+.btn-mute {
+    background-color: #f1f1f1;
+    color: #666666;
+}
+
+.btn-mute-hover:hover {
+    background-color: #dfdfdf;
+    color: #666666;
+}
+
+.btn-gray-hover:hover {
+    color: #888888;
+    background-color: #dddddd;
+}
+
+.btn-green {
+    color: #12924f;
+    background-color: #4af59c;
+}
+
+.btn-green-hover:hover {
+    color: #12924f;
+    background-color: #4af59c;
+}
+
+.btn-blue {
+    background-color: #2187f6;
+    color: white;
+}
+
+.btn-blue-hover:hover {
+    color: white;
+    background-color: #134bb0;
+}
+
+hr {
+    background-color: #aaaaaa;
+}
+
+.icon-16 {
+    font-size: 16px;
+}
+
+.icon-20 {
+    font-size: 20px;
+}
+
+.icon-24 {
+    font-size: 24px;
+}
+
+.icon-28 {
+    font-size: 28px;
+}
+
+.icon-32 {
+    font-size: 32px;
+}
+
+.icon-hover-accent:hover i {
+    color: #2187f6;
+}
+
+.square-img {
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    border-radius: 1rem;
+}
+
+h5 {
+    font-weight: 500;
 }
