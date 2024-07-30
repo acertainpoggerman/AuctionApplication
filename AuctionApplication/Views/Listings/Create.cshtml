@@ -1,18 +1,18 @@
-﻿@model AuctionApplication.Models.ListingVM
+﻿@model AuctionApplication.Models.ListingViewModel
 @using Microsoft.AspNetCore.Identity
-@inject UserManager<IdentityUser> userManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create Listing</h1>
+<h2>Create Listing</h2>
 
-<h4>Listing</h4>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+        <form asp-action="Create" enctype="multipart/form-data" class="d-flex flex-column gap-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -36,7 +36,7 @@
             </div>
 
             <div class="form-group">
-                <input type="hidden" asp-for="IdentityUserId" class="form-control" value="@userManager.GetUserId(User)" />
+                <input type="hidden" asp-for="IdentityUserId" class="form-control" value="@UserManager.GetUserId(User)" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

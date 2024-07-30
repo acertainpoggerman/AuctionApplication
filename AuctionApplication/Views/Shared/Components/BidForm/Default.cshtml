@@ -1,0 +1,34 @@
+﻿@model AuctionApplication.Models.Listing
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+ 
+@{
+    ViewData["ListingMinPrice"] = Model.Bids!.Any()
+                ? Model.Bids?.Select(l => l.Price).Max() + 1
+                : Model.Price + 1;
+}
+
+<form method="post" asp-controller="Bids" asp-action="Create">
+    <div class="form-group d-flex flex-column gap-1">
+        <label class="control-label text-black-50">Amount</label>
+        <div asp-for class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">$</span>
+            </div>
+            <input 
+                type="number" 
+                name="Price" 
+                min="@ViewData["ListingMinPrice"]" 
+                placeholder="@ViewData["ListingMinPrice"]" 
+                class="form-control" 
+            />
+        </div>
+        <span class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="ListingId" class="form-control" value="@Model.Id" />
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="IdentityUserId" class="form-control" value="@UserManager.GetUserId(User)" />
+    </div>
+</form>

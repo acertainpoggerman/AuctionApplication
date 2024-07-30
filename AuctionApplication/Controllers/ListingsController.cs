@@ -41,7 +41,7 @@ namespace AuctionApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ListingVM listing)
+        public async Task<IActionResult> Create(ListingViewModel listing)
         {
             if (listing.Image != null)
             {

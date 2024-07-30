@@ -12,13 +12,13 @@ namespace AuctionApplication.ViewComponents
             _bidService = bidService;
         }
 
-        public IViewComponentResult Invoke(int listingId, int count = 10)
+        public async Task<IViewComponentResult> InvokeAsync(int listingId, int count = 10)
         {
-            var bids = _bidService.GetAll()
+            var bids = await _bidService.GetAll()
                 .Where(b => b.ListingId == listingId)
                 .OrderByDescending(b => b.Price)
                 .Take(count)
-                .ToList();
+                .ToListAsync();
 
             return View(bids);
         }

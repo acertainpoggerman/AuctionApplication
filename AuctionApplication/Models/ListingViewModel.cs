@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AuctionApplication.Models
 {
-    public class ListingVM
+    public class ListingViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
