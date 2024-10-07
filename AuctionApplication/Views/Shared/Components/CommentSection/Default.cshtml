@@ -1,0 +1,38 @@
+﻿@model IEnumerable<AuctionApplication.Models.Comment>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    var rand = new Random();
+    double hue;
+}
+
+<div class="d-flex flex-column py-4 flex-grow-1 w-100 gap-2 rd-3 bg-white-98">
+    <div class="d-flex gap-2 px-4 align-items-baseline">
+        <i class="fa-solid fa-comments"></i><h5>Comments</h5>
+    </div>
+    <hr class="mx-4 my-2" />
+    @foreach (var comment in Model)
+    {
+        hue = rand.NextDouble() * 256;
+
+        <div class="d-flex gap-3 py-2 px-4 flex-shrink-1 flex-grow-0 hover-darken">
+            <div 
+                class="d-flex align-items-center justify-content-center h-100 square rd-5 icon-28 fw-600 text-center text-white"
+                style="background-color: hsl(@hue, 100%, 65%);">
+               @comment.User?.UserName!.ToUpper()[0]
+            </div>
+            <div class="d-flex flex-column py-2 flex-grow-1 w-100">
+                <span class="icon-12 text-black-60">@comment.User?.UserName</span>
+                <span>@comment.Content</span>
+            </div>
+        </div>
+    }
+    @if (!Model.Any())
+    {
+        <div class="d-flex flex-column icon-20 fw-medium flex-grow-1 w-100 gap-1 text-center text-black-60">
+            There are no comments here...
+            <span class="fw-400 icon-16 text-black-50">What do you think about this listing?</span>
+        </div>
+    }
+</div>

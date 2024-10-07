@@ -4,11 +4,16 @@
 
 @{
     ViewData["Title"] = "Details";
+    ViewData["ListingId"] = Model.Id;
+
+    ViewData["HighestBidString"] = Model.Bids!.Any()
+            ? $"$ {Model.Bids?.Select(l => l.Price).Max().ToString("N2")}"
+            : "This listing has no bids";
 }
 
 <div class="d-flex gap-5 my-5 align-items-end justify-content-center">
     <img src="~/images/@Model.ImagePath" class="w-25 square-img" alt="Image"  />    
-    <div class="d-flex flex-column gap-3">
+    <div class="d-flex flex-column gap-1 w-50">
         <div>
             <h2>@Model.Title</h2>
             <span>Listed by @Model.User?.UserName</span>
@@ -19,11 +24,15 @@
                 <dt class = "col-sm-3">Starting Price</dt>
                 <dd class = "col-sm-8">$ @Model.Price.ToString("N2")</dd>
                 <dt class = "col-sm-3">Highest Bid</dt>
-                <dd class = "col-sm-8">$ @Model.Price.ToString("N2")</dd>
+                <dd class = "col-sm-8">@ViewData["HighestBidString"]</dd>
+                @if (!Model.IsSold && Model?.IdentityUserId != UserManager.GetUserId(User))
+                {
+                    <dt class="text-green fw-400 mt-1">This auction is still accepting bids.</dt>
+                }
             </dl>
         </div>
         <div class="d-flex gap-2">
-            @if (Model.IdentityUserId == UserManager.GetUserId(User))
+            @if (Model?.IdentityUserId == UserManager.GetUserId(User))
             {
                 <a class="flex-grow-1 link-btn py-3 icon-16 d-flex justify-content-center align-items-baseline gap-2 btn-blue btn-blue-hover" asp-action="Edit" asp-route-id="@Model?.Id">
                     <i class="fa-solid fa-pen-to-square"></i> Edit
@@ -42,7 +51,7 @@
     </div>
 </div>
 <hr class="my-4" />
-<div class="d-flex gap-2 justify-content-center">
+<div class="d-flex gap-5 justify-content-center">
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -57,20 +66,21 @@
         </div>
     </div>
 
-    <div class="d-flex flex-column px-4 flex-grow-1 w-100 gap-1">
+    <div class="d-flex flex-column flex-grow-1 w-100 gap-1">
         @if (UserManager.GetUserId(User) != Model?.IdentityUserId)
         {
             <button type="button" class="link-btn btn-mute btn-gold-hover d-flex gap-3 justify-content-center align-items-center border-0 py-3 my-0 mb-4" onclick="ShowModal()">
                 <i class="fa-solid fa-coins icon-20"></i>Make a Bid
             </button>
-
         }
         <h5>Most Recent Bids</h5>
-        @await Component.InvokeAsync("BidList", new { listingId = Model?.Id, count = 10 })
+        @await Component.InvokeAsync("BidList", new { listingId = ViewData["ListingId"], count = 10 })
     </div>
 
-
-    <div class="flex-grow-1 d-flex flex-column p-4 rd-4 bg-white-95 w-100">
+    <div class="d-flex flex-column flex-grow-1 w-100 gap-3 rd-3">
+        
+        @await Component.InvokeAsync("CommentSection", new { listingId = ViewData["ListingId"] })
+        @await Component.InvokeAsync("CommentInput", new { listing = Model })
     </div>
 </div>
 

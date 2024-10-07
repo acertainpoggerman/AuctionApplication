@@ -1,5 +1,6 @@
 ﻿using AuctionApplication.Data.Interfaces;
 using AuctionApplication.Models;
+using Microsoft.CodeAnalysis.Elfie.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuctionApplication.Data.Services
@@ -26,9 +27,16 @@ namespace AuctionApplication.Data.Services
             await _context.SaveChangesAsync();
         }
 
-        public Task<List<Bid>?> GetAllForListing(int? id, int count = 10)
+        public async Task<List<Bid>?> GetBidsForListing(int listingId, int count = 10)
         {
-            throw new NotImplementedException();
+            var bids = await _context.Bids
+                .Where(b => b.ListingId == listingId)
+                .Include(b => b.User)
+                .OrderByDescending(b => b.Price)
+                .Take(count)
+                .ToListAsync();
+
+            return bids;
         }
     }
 }

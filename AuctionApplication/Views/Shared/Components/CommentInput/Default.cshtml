@@ -1,0 +1,26 @@
+﻿@model AuctionApplication.Models.Listing
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+<form method="post" asp-controller="Comments" asp-action="Create" class="d-flex gap-1 align-items-center">
+    <div class="form-group d-flex flex-column flex-grow-1 h-100">
+        <div asp-for class="input-group h-100">
+            <input type="text"
+                   name="Content"
+                   class="form-control h-100 mb-0"
+                   placeholder="Comment as @UserManager.GetUserName(User)" />
+        </div>
+        <span class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="ListingId" class="form-control" value="@Model.Id" />
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="IdentityUserId" class="form-control" value="@UserManager.GetUserId(User)" />
+    </div>
+    <div class="form-group h-100">
+        <button type="submit" value="Create" class="link-btn btn-blue btn-blue-hover h-100 border-0">
+            <i class="fa-solid fa-paper-plane"></i>
+        </button>
+    </div>
+</form>

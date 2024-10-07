@@ -2,8 +2,12 @@
 
 @foreach (var bid in Model)
 {
-    <div class="d-flex justify-content-between">
-        <span>@bid.User?.UserName</span>
-        <span>$ @bid.Price.ToString("N2")</span>
+    <div class="d-flex justify-content-between text-black-60">
+        <span class ="text-black-60">@bid.User?.UserName</span>
+        <span class="fw-500 text-black-60">$ @bid.Price.ToString("N2")</span>
     </div>
+}
+@if (!Model.Any())
+{
+    <span>No bids have been made yet</span>
 }

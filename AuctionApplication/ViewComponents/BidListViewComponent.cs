@@ -1,6 +1,5 @@
 ﻿using AuctionApplication.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace AuctionApplication.ViewComponents
 {
@@ -14,12 +13,7 @@ namespace AuctionApplication.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(int listingId, int count = 10)
         {
-            var bids = await _bidService.GetAll()
-                .Where(b => b.ListingId == listingId)
-                .OrderByDescending(b => b.Price)
-                .Take(count)
-                .ToListAsync();
-
+            var bids = await _bidService.GetBidsForListing(listingId);
             return View(bids);
         }
     }
